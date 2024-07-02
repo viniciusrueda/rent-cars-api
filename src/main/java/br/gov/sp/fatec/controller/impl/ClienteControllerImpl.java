@@ -2,42 +2,39 @@ package br.gov.sp.fatec.controller.impl;
 
 import br.gov.sp.fatec.controller.ClienteController;
 import br.gov.sp.fatec.domain.request.ClienteRequest;
-import br.gov.sp.fatec.domain.request.ClienteUpdateRequest;
 import br.gov.sp.fatec.domain.response.ClienteResponse;
 import br.gov.sp.fatec.service.ClienteService;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 public class ClienteControllerImpl implements ClienteController {
-
-    private final ClienteService clienteService;
+    @Autowired
+    private ClienteService clienteService;
 
     @Override
-    public ResponseEntity<ClienteResponse> save(ClienteRequest cliente) {
-        return null;
+    public ClienteResponse save(ClienteRequest clienteRequest) {
+        return clienteService.save(clienteRequest);
     }
 
     @Override
-    public ResponseEntity<ClienteResponse> findById(Long id) {
-        return null;
+    public ClienteResponse findById(Long id) {
+        return clienteService.findById(id);
     }
 
     @Override
-    public ResponseEntity<List<ClienteResponse>> findAll() {
-        return null;
+    public List<ClienteResponse> findAll() {
+        return clienteService.findAll();
     }
 
     @Override
-    public ResponseEntity<Void> updateById(Long id, ClienteUpdateRequest request) {
-        return null;
+    public ClienteResponse updateById(Long id, ClienteRequest clienteRequest) {
+        return clienteService.updateById(id, clienteRequest);
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
-        return null;
+    public void deleteById(Long id) {
+        clienteService.deleteById(id);
     }
 }

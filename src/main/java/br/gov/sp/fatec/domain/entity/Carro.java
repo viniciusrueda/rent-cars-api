@@ -1,24 +1,18 @@
 package br.gov.sp.fatec.domain.entity;
 
-import br.gov.sp.fatec.domain.enums.CarroStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
 public class Carro {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String modelo;
+    private String placa;
 
-    @Enumerated(value = EnumType.STRING)
-    private CarroStatus status;
+    @OneToMany(mappedBy = "carro")
+    private List<Aluguel> alugueis;
 }

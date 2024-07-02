@@ -9,17 +9,26 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import java.util.Date;
+import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
 public class Aluguel {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
 
-    @Enumerated(value = EnumType.STRING)
-    private AluguelStatus status;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "carro_id")
+    private Carro carro;
 }

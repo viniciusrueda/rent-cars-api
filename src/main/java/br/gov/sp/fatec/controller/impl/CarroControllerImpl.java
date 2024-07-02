@@ -2,42 +2,39 @@ package br.gov.sp.fatec.controller.impl;
 
 import br.gov.sp.fatec.controller.CarroController;
 import br.gov.sp.fatec.domain.request.CarroRequest;
-import br.gov.sp.fatec.domain.request.CarroUpdateRequest;
 import br.gov.sp.fatec.domain.response.CarroResponse;
 import br.gov.sp.fatec.service.CarroService;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 public class CarroControllerImpl implements CarroController {
-
-    private final CarroService carroService;
+    @Autowired
+    private CarroService carroService;
 
     @Override
-    public ResponseEntity<CarroResponse> save(CarroRequest carro) {
-        return null;
+    public CarroResponse save(CarroRequest carroRequest) {
+        return carroService.save(carroRequest);
     }
 
     @Override
-    public ResponseEntity<CarroResponse> findById(Long id) {
-        return null;
+    public CarroResponse findById(Long id) {
+        return carroService.findById(id);
     }
 
     @Override
-    public ResponseEntity<List<CarroResponse>> findAll() {
-        return null;
+    public List<CarroResponse> findAll() {
+        return carroService.findAll();
     }
 
     @Override
-    public ResponseEntity<Void> updateById(Long id, CarroUpdateRequest request) {
-        return null;
+    public CarroResponse updateById(Long id, CarroRequest carroRequest) {
+        return carroService.updateById(id, carroRequest);
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
-        return null;
+    public void deleteById(Long id) {
+        carroService.deleteById(id);
     }
 }

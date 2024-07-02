@@ -1,15 +1,12 @@
 package br.gov.sp.fatec.domain.mapper;
 
-import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
-
 import br.gov.sp.fatec.domain.entity.Carro;
 import br.gov.sp.fatec.domain.request.CarroRequest;
-import br.gov.sp.fatec.domain.response.AluguelResponse;
+import br.gov.sp.fatec.domain.response.CarroResponse;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = SPRING)
+@Mapper(componentModel = "spring")
 public interface CarroMapper {
-    Carro map(CarroRequest source);
-
-    AluguelResponse map(Carro source);
+    Carro toEntity(CarroRequest dto);
+    CarroResponse toResponse(Carro entity);
 }

@@ -1,19 +1,18 @@
 package br.gov.sp.fatec.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
 public class Cliente {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nome;
+    private String cpf;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Aluguel> alugueis;
 }

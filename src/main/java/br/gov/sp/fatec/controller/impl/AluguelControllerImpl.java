@@ -2,42 +2,39 @@ package br.gov.sp.fatec.controller.impl;
 
 import br.gov.sp.fatec.controller.AluguelController;
 import br.gov.sp.fatec.domain.request.AluguelRequest;
-import br.gov.sp.fatec.domain.request.AluguelUpdateRequest;
 import br.gov.sp.fatec.domain.response.AluguelResponse;
 import br.gov.sp.fatec.service.AluguelService;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 public class AluguelControllerImpl implements AluguelController {
-
-    private final AluguelService aluguelService;
+    @Autowired
+    private AluguelService aluguelService;
 
     @Override
-    public ResponseEntity<AluguelResponse> save(AluguelRequest aluguel) {
-        return null;
+    public AluguelResponse save(AluguelRequest aluguelRequest) {
+        return aluguelService.save(aluguelRequest);
     }
 
     @Override
-    public ResponseEntity<AluguelResponse> findById(Long id) {
-        return null;
+    public AluguelResponse findById(Long id) {
+        return aluguelService.findById(id);
     }
 
     @Override
-    public ResponseEntity<List<AluguelResponse>> findAll() {
-        return null;
+    public List<AluguelResponse> findAll() {
+        return aluguelService.findAll();
     }
 
     @Override
-    public ResponseEntity<Void> updateById(Long id, AluguelUpdateRequest request) {
-        return ResponseEntity.noContent().build();
+    public AluguelResponse updateById(Long id, AluguelRequest aluguelRequest) {
+        return aluguelService.updateById(id, aluguelRequest);
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
-        return ResponseEntity.noContent().build();
+    public void deleteById(Long id) {
+        aluguelService.deleteById(id);
     }
 }

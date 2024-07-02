@@ -1,40 +1,57 @@
 package br.gov.sp.fatec.service.impl;
 
+import br.gov.sp.fatec.domain.entity.Aluguel;
 import br.gov.sp.fatec.domain.mapper.AluguelMapper;
 import br.gov.sp.fatec.domain.request.AluguelRequest;
-import br.gov.sp.fatec.domain.request.AluguelUpdateRequest;
 import br.gov.sp.fatec.domain.response.AluguelResponse;
 import br.gov.sp.fatec.repository.AluguelRepository;
 import br.gov.sp.fatec.service.AluguelService;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class AluguelServiceImpl implements AluguelService {
+import java.util.List;
+import java.util.stream.Collectors;
 
-    private final AluguelRepository aluguelRepository;
-    private final AluguelMapper aluguelMapper;
+@Service
+public class AluguelServiceImpl implements AluguelService {
+    @Autowired
+    private AluguelRepository aluguelRepository;
+
+    @Autowired
+    private AluguelMapper aluguelMapper;
 
     @Override
     public AluguelResponse save(AluguelRequest aluguelRequest) {
-        return null;
+        Aluguel aluguel = aluguelMapper.toEntity(aluguelRequest);
+        return aluguelMapper.toResponse(aluguelRepository.save(aluguel));
     }
 
     @Override
     public AluguelResponse findById(Long id) {
-        return null;
+        return aluguelRepository.findById(id)
+                .map(aluguelMapper::toResponse)
+                .orElse(null);
     }
 
     @Override
     public List<AluguelResponse> findAll() {
-        return List.of();
+        return aluguelRepository.findAll().stream()
+                .map(aluguelMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void updateById(Long id, AluguelUpdateRequest aluguelUpdateRequest) {}
+    public AluguelResponse updateById(Long id, AluguelRequest aluguelRequest) {
+        if (aluguelRepository.existsById(id)) {
+            Aluguel aluguel = aluguelMapper.toEntity(aluguelRequest);
+            aluguel.setId(id);
+            return aluguelMapper.toResponse(aluguelRepository.save(aluguel));
+        }
+        return null;
+    }
 
     @Override
-    public void deleteById(Long id) {}
+    public void deleteById(Long id) {
+        aluguelRepository.deleteById(id);
+    }
 }
